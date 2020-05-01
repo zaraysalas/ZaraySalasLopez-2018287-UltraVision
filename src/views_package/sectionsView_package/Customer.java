@@ -17,33 +17,46 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import Encapsulations.Sections_Attributes;
 import controllers_package.controller_login_package.Controller_Menu;
 import controllers_package.controllers_sections_package.Controller_Sections;
 
 public class Customer extends Sections{
 	
+	private static Controller_Sections controllersection;
+
+
 	public Customer(){
 		super();
-		FrameAttributes();
+		secattri.setFrameSize(200, 100, 330, 400);
+		FrameAttributes(frameLeft, frameUpper, frameWidth, frameHeight);
+		secattri.setFrameHeightTable(400);
+		secattri.setP1height(330, 320);
+		p1(p1width, p1height);
 		Search();
-		AddTop();
+		AddTop(p1Addwidth, p1Addheight, titleBorder);
 		Add();
-		AddButton();
+		secattri.setAddButton("ADD_CUSTOMER");
+		AddButton(AddButton);
 		Validation();
 	}
+	
 
 	@Override
 	public void Add() {
-		p1addlabels.add(lName = new JLabel("FIRST NAME:"));
-		p1addlabels.add(fName = new JTextField());
+		p1addlabels.add(lFirstName = new JLabel("FIRST NAME:"));
+		p1addlabels.add(fFirstName = new JTextField());
 
-		p1addlabels.add(lRelease = new JLabel("LAST NAME:"));
-		p1addlabels.add(fRelease = new JTextField());
+		p1addlabels.add(lLastName = new JLabel("LAST NAME:"));
+		p1addlabels.add(fLastName = new JTextField());
 
 		p1addlabels.add(lMembership = new JLabel("MEMBERSHIP'S LEVEL:"));
-		String[] memeberLevel = {"Choose one","MO", "MU", "LC", "BS"};
-		cMemberLevel = new JComboBox<String>(memeberLevel);
+		memberLevelList = new String[] {"Choose one","MO", "MU", "LC", "BS"};
+		cMemberLevel = new JComboBox<String>(memberLevelList);
 		p1addlabels.add(cMemberLevel);
+		
+		p1addlabels.add(lCreditCard = new JLabel("CREDIT CARD:"));
+		p1addlabels.add(fCreditCard = new JTextField());
 	}
 	
 

@@ -26,12 +26,11 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 	private Sections_Attributes secattri;
 	
 	private String[] searchby;
-	private String section, searchValue, selection, selection1, name, genre, format, category, className;
+	private String password, username, section, searchValue, selection, selection1, name, genre, format, category, className;
 
 	
 	public Controller_Menu(StaffEncapsulation staffcapsule) {
-
-		String username = staffcapsule.getUsername();
+		username = staffcapsule.getUsername();
 		// Open the Menu with this Controller and passing the username
 		menu = new Menu(this, username);
 		
@@ -57,7 +56,7 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 		// When "Customer" is pressed in the Menu
 		case "albCustomer":
 			menu.dispose();
-			searchby = new String[] {"Choose one", "FIRST_NAME", "LAST_NAME", "LEVEL_MERBERSHIP"};
+			searchby = new String[] {"Choose one", "FIRST_NAME", "LAST_NAME", "LEVEL_MEMBERSHIP"};
 			secattri = new Sections_Attributes();
 			section = "CUSTOMER";
 			secattri.setcontrollerdata(searchby, section);
@@ -65,8 +64,11 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			break;
 		// When "Renting" is pressed in the Menu
 		case "albRent":
-			System.out.println("Button RENTING was pressed");
 			menu.dispose();
+			searchby = new String[] {"Choose one", "RECEIPT_TYPE", "DATE_RENTED", "RETURNING_DATE", "MEMBERSHIP_CARD"};
+			secattri = new Sections_Attributes();
+			section = "RECEIPT";
+			secattri.setcontrollerdata(searchby, section);
 			renting = new Renting();
 			break;
 		// When "Returning" is pressed in the Menu

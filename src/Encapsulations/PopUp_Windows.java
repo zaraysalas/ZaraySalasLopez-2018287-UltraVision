@@ -13,7 +13,7 @@ public class PopUp_Windows{
 	
 	public void notNumber() {
 		JOptionPane.showMessageDialog(null,
-			    "Release / Stock must be numbers. Please, try again",
+			    "That is not a valid number. \n Please, try again",
 			    "NumberFormatException",
 			    JOptionPane.ERROR_MESSAGE);
 	}
@@ -25,7 +25,7 @@ public class PopUp_Windows{
 	
 	public void empty() {
 		JOptionPane.showMessageDialog(null,
-			    "No empty boxes allowed. Please, try again",
+			    "No empty boxes allowed. \n Please, try again",
 			    "ERROR",
 			    JOptionPane.ERROR_MESSAGE);
 	}
@@ -57,5 +57,29 @@ public class PopUp_Windows{
 			    "Input a number > 0.",
 			    "Number < 0",
 			    JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void notCreditCard() {
+		JOptionPane.showMessageDialog(null,
+			    "That is not a valid Credit Card Number. \n Must be 16 digits.",
+			    "Format Invalid",
+			    JOptionPane.ERROR_MESSAGE);
+		
+	}
+
+	public void InexistantMemberShipCard() {
+		JOptionPane.showMessageDialog(null,
+			    "That is not a valid Membership Card. \n Must be 10001 or more.",
+			    "Format Invalid",
+			    JOptionPane.ERROR_MESSAGE);
+		
+	}
+
+	public void duplicateRent() {
+		JOptionPane.showMessageDialog(null,
+			    "A customer can't rent twice the same Title",
+			    "Rent Invalid",
+			    JOptionPane.ERROR_MESSAGE);
+		
 	}	
 }
