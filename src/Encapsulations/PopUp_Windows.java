@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 
 public class PopUp_Windows{
 
+	protected Sections_Attributes secattri;
+	public PopUp_Windows() {secattri = new Sections_Attributes(); }
 	public void tryAgain() {
 		JOptionPane.showMessageDialog(null,
 			    "Information Incorrect. Please, try again",
@@ -82,4 +84,22 @@ public class PopUp_Windows{
 			    JOptionPane.ERROR_MESSAGE);
 		
 	}	
+	public void points_freeRents_available() {
+		JOptionPane.showMessageDialog(null,
+			    "Membership Card "+ secattri.getMembershipCard() + " has:\n POINTS: "+ secattri.getPoints() +"\nFREE RENTS: "+ secattri.getFreeRents() + "\navailable",
+			    "Loyalty Card",
+			    JOptionPane.INFORMATION_MESSAGE);
+	}
+	public void stillTime() {
+		JOptionPane.showMessageDialog(null,
+			    "The title "+secattri.getCodeTitle()+" is not overrrented.",
+			    "Days Remaining",
+			    JOptionPane.INFORMATION_MESSAGE);
+	}
+	public void stockUpdated() {
+		JOptionPane.showMessageDialog(null,
+			    "New Stock Available is "+secattri.getStockAvailable(),
+			    "Days Remaining",
+			    JOptionPane.INFORMATION_MESSAGE);
+	}
 }

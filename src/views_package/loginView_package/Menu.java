@@ -61,7 +61,7 @@ public class Menu extends JFrame{
 		JLabel lMenu = new JLabel("M a i n   M e n u :");
 		JButton bTitles = new JButton("TITLES");
 		JButton bCustomer = new JButton("CUSTOMER");
-		JButton bRent = new JButton("RENT A TITLE");
+		JButton bCheckout = new JButton("CHECKOUT");
 		JButton bReturn = new JButton("RETURN A TITLE");
 		JButton bBack = new JButton("Back to LOGIN");
 		
@@ -75,7 +75,7 @@ public class Menu extends JFrame{
 		p.add(Box.createRigidArea(new Dimension(0, 30)));
 		p.add(bCustomer);
 		p.add(Box.createRigidArea(new Dimension(0, 30)));
-		p.add(bRent);
+		p.add(bCheckout);
 		p.add(Box.createRigidArea(new Dimension(0, 30)));
 		p.add(bReturn);
 		p.add(Box.createRigidArea(new Dimension(0, 30)));
@@ -87,8 +87,8 @@ public class Menu extends JFrame{
 		bCustomer.addActionListener((ActionListener)controllermenu);
 		bCustomer.setActionCommand("albCustomer");
 		
-		bRent.addActionListener((ActionListener)controllermenu);
-		bRent.setActionCommand("albRent");
+		bCheckout.addActionListener((ActionListener)controllermenu);
+		bCheckout.setActionCommand("bCheckout");
 		
 		bReturn.addActionListener((ActionListener)controllermenu);
 		bReturn.setActionCommand("albReturn");

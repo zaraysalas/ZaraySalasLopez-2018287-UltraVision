@@ -113,7 +113,7 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		p1searchSquares.add(cAfterSearch);
 		// The combobox is set not visible until the user choose something from first
 		// combobox
-		model = (DefaultComboBoxModel<?>) cAfterSearch.getModel();
+		model = (DefaultComboBoxModel) cAfterSearch.getModel();
 		cAfterSearch.setVisible(false);
 
 		p1search.add(p1searchButtons = new JPanel());
@@ -229,72 +229,7 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 
 	}
 
-	@Override
-	public void Receipt() {
-		p1addlabels.add(lName = new JLabel("MEMBERSHIP CARD:"));
-		p1addlabels.add(fMembershipCard = new JTextField());
-		fMembershipCard.getDocument().addDocumentListener((DocumentListener) controllersection);
-
-		p1addlabels.add(lMembership = new JLabel("MEMBERSHIP'S LEVEL:"));
-		p1addlabels.add(fMembership = new JTextField());
-		fMembership.setEditable(false);
-
-		p1addlabels.add(lCustomerName = new JLabel("CUSTOMER NAME:"));
-		p1addlabels.add(fCustomerName = new JTextField());
-		fCustomerName.setEditable(false);
-
-		p1addlabels.add(lConsecutiveReceipt = new JLabel("RECEIPT NUMBER:"));
-		p1addlabels.add(fConsecutiveReceipt = new JTextField());
-		fConsecutiveReceipt.setEditable(false);
-
-		p1addlabels.add(lReceiptType = new JLabel("RECEIPT TYPE:"));
-		receiptTypeList = new String[] { "Choose one", "RENT", "PENALTY" };
-		cReceiptType = new JComboBox<String>(receiptTypeList);
-		p1addlabels.add(cReceiptType);
-		cReceiptType.addItemListener((ItemListener) controllersection);
-
-		p1addlabels.add(lDateToday = new JLabel("DATE:"));
-		p1addlabels.add(fDateToday = new JTextField());
-		fDateToday.setEditable(false);
-
-		p1addlabels.add(lDate = new JLabel("RETURNING DATE"));
-		lDate.setVisible(false);
-		p1addlabels.add(fDate = new JTextField());
-		fDate.setVisible(false);
-		fDate.setEditable(false);
-
-		p1addlabels.add(lTitleCode = new JLabel("TITLE CODE:"));
-		comboTitleCode = new JComboBox<String>();
-		p1addlabels.add(comboTitleCode);
-		comboTitleCode.addItemListener((ItemListener) controllersection);
-		// The combobox is set not visible until the user choose something from first
-		// combobox
-		model = (DefaultComboBoxModel<?>) comboTitleCode.getModel();
-		comboTitleCode.setVisible(true);
-
-		p1addlabels.add(lStockAvailable = new JLabel("STOCK AVAILABLE: "));
-		lStockAvailable.setVisible(false);
-		p1addlabels.add(fStockAvailable = new JTextField());
-		fStockAvailable.setVisible(false);
-		fStockAvailable.setEditable(false);
-
-		p1add.add(p1addTitleName = new JPanel());
-		p1addTitleName.setPreferredSize(new Dimension(330, 0));
-		p1addTitleName
-				.add(fTitle = new JTextField("TitleDescription TitleDescription TitleDescription TitleDescription"));
-		fTitle.setPreferredSize(new Dimension(315, 30));
-		fTitle.setMaximumSize(new Dimension(315, 60));
-		fTitle.setEditable(false);
-		fTitle.setVisible(true);
-
-		p1addlabels.add(lPrice = new JLabel("PRICE PER DAY:"));
-		p1addlabels.add(fPrice = new JTextField());
-		fPrice.setEditable(false);
-
-		p1addlabels.add(lTotal = new JLabel("TOTAL:"));
-		p1addlabels.add(fTotal = new JTextField());
-		fTotal.setEditable(false);
-	}
+	
 
 	@Override
 	public void LoyaltyCard() {
@@ -317,7 +252,6 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		p1loyaltyCard.add(Box.createRigidArea(new Dimension(0, 10)));
 	}
 
-	@Override
 	public void RentedList() {
 		p1.add(p1rentedList = new JPanel());
 		p1rentedList.setPreferredSize(new Dimension(330, 300));
@@ -332,7 +266,8 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		sectionFrame.repaint();
 	}
 
-//------------------SEARCH-----------------------------
+	// ------------------SEARCH-----------------------------
+	@Override
 	public String getfName() {
 		name = fName.getText();
 		return name;
@@ -361,65 +296,79 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		Validation();
 	}
 
+	@Override
 	public Object getSelection2() {
 		Object selection2 = cAfterSearch.getSelectedItem();
 		return selection2;
 	}
 
-//--------------------ADD-------------------------------
+	// --------------------ADD-------------------------------
+	@Override
 	public String getComboGenre() {
 		genre = (String) comboGenre.getSelectedItem();
 		return genre;
 	}
 
+	@Override
 	public String getFrelease() {
 		String release = fRelease.getText();
 		return release;
 	}
 
+	@Override
 	public String getComboFormat() {
 		format = (String) comboFormat.getSelectedItem();
 		return format;
 	}
 
+	@Override
 	public String getComboCategory() {
 		category = (String) comboCategory.getSelectedItem();
 		return category;
 	}
 
+	@Override
 	public String getFstock() {
 		String stock = fStock.getText();
 		return stock;
 	}
 
-//-----------------CUSTOMER------------------------
+	// -----------------CUSTOMER------------------------
+	@Override
 	public String getfFirstName() {
 		firstName = fFirstName.getText();
 		return firstName;
 	}
 
+	@Override
 	public String getfLastName() {
 		lastName = fLastName.getText();
 		return lastName;
 	}
 
+	@Override
 	public String getcMemberLevel() {
 		membershipLevel = (String) cMemberLevel.getSelectedItem();
 		return membershipLevel;
 	}
 
+	@Override
 	public String getfCreditCard() {
 		String stringcreditCard = fCreditCard.getText();
 		return stringcreditCard;
 	}
-//-------------------RECEIPT--------------------------
 
-	public static String getfMembershipCard() {
+	// -------------------RECEIPT--------------------------
+	@Override
+	public String getfMembershipCard() {
 		MembershipCard = fMembershipCard.getText();
 		return MembershipCard;
 	}
-
+	//Display and change label
+	// Membership_card will trigger...
+	@Override
 	public void fMembershipLevel() {
+		
 		fMembership.setText(null);
 		fMembership.setText(valueFound1);
 
@@ -430,107 +379,121 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		consecutiveReceipt = secattri.getConsecutiveReceipt();
 		fConsecutiveReceipt.setText("" + consecutiveReceipt);
 
-		//Membership_card will shoot Date
 		fDateToday.setText(today());
-
 	}
 
+	@Override
 	// get current date
-	public static String today() {
+	public String today() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(cal.getTime());
 	}
 
-	//Receipt_type will shoot Returning_date label or Days_overrented label
+	@Override
+	// Receipt_type will shoot Returning_date label or Days_overrented label
 	public String getcReceiptType() {
 		ReceiptType = (String) cReceiptType.getSelectedItem();
 		return ReceiptType;
 	}
 
-//---------------RENTING-----------------------------
-	//If the user select RENT
+	// ---------------RENTING-----------------------------
+	// If the user select RENT
+	@Override
 	public void RentReceipt() {
+		
 		lDate.setVisible(true);
+		lDate.setText("RETURNING DATE:");
 		fDate.setVisible(true);
 		lTotal.setText("TOTAL (3DAYS RENT):");
-		//Title_code will shoot price
-		comboTitleCode();
-		
+		lStockAvailable.setVisible(true);
+		lStockAvailable.setText("STOCK AVAILABLE:");
+		fStockAvailable.setVisible(true);
+		fDate.setText(returningDay());
+		lPrice.setText("PRICE PER DAY");
 	}
-
+//this is use in RENT and PENALTY
+	@Override
 	public void comboTitleCode() {
 		// Make the combobox visible
 		comboTitleCode.setVisible(true);
 		// Removing all elements from combobox
-		model.removeAllElements();
+		modelTitleCode.removeAllElements();
 		// Getting the array of elements for the combobox
 		titleCodeList = secattri.getitleCodeList();
-		// adding the array to the combobox(model)
-		// model.addElement("Choose one");
+		// adding the array to the combobox(modelTitleCode)
+		// modelTitleCode.addElement("Choose one");
 		for (Object item : titleCodeList) {
-			model.addElement(item);
+			modelTitleCode.addElement(item);
 		}
 		// setting model with new data to the actual combobox
-		comboTitleCode.setModel(model);
+		comboTitleCode.setModel(modelTitleCode);
 		Validation();
 	}
-	
+
+	@Override
 	public void titleName() {
-		lStockAvailable.setVisible(true);
-		fStockAvailable.setVisible(true);
+
 		fTitle.setText(secattri.getTitleName());
 		fPrice.setText("" + secattri.getPrice());
 		fStockAvailable.setText("" + secattri.getStockAvailable());
-		// Adding 3 Days to the current date
-		fDate.setText(returningDay());
-		fTotal.setText(""+total());
+		
+		fDate.setText((String) secattri.getDate());
+		fTotal.setText(""+total);
 	}
 
+	@Override
 	public String getfMembership() {
 		membershipLevel = fMembership.getText();
 		return membershipLevel;
 	}
 
-	//Returning_Date: Date plus 3 days allowed to have a title rented
+	// Returning_Date: Date plus 3 days allowed to have a title rented
 	// Adding 3 Days to the current date
-	public static String returningDay() {
+	@Override
+	public String returningDay() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		cal.add(Calendar.DAY_OF_MONTH, 3);
 		return format.format(cal.getTime());
 	}
 
+	@Override
 	public Object getcomboTitleCode() {
 		titleCode = comboTitleCode.getSelectedItem();
 		return titleCode;
 	}
+
 	public Object getTotal() {
 		total = fTotal.getText();
 		return total;
 	}
 
+	@Override
 	public Object getReceiptNum() {
 		receiptNum = fConsecutiveReceipt.getText();
 		return receiptNum;
 	}
 
-	//------------------PENALTY--------------------------
-	//If the option PENALTY is select...
-	
+	// ------------------PENALTY--------------------------
+	// If the option PENALTY is select...
+	@Override
 	public void PenaltyReceipt() {
+		
 		lDate.setVisible(true);
-		lDate.setText("DAYS OVERRENTED:");
+		lDate.setText("RETURNING DATE:");
 		fDate.setVisible(true);
-		fDate.setText("");
+		fDate.setText(""+secattri.getDate());
+		lPrice.setText("PENALTY COST");
+		lStockAvailable.setVisible(true);
+		lStockAvailable.setText("DAYS PASSED:");
+		fStockAvailable.setVisible(true);
+		fStockAvailable.setText("" + secattri.getDate());
 		lTotal.setText("TOTAL:");
-		comboTitleCode();
+		fTotal.setText(""+ total);
 	}
-	public int total() {
-		int total = (Integer.parseInt(fPrice.getText())*3) ;
-		return total;
-	}
-	
+
+	@Override
 	public void noData() {
 		fMembershipCard.setText("");
 		fMembership.setText("");
@@ -541,24 +504,43 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		lDate.setVisible(false);
 		fDate.setVisible(false);
 		model.removeAllElements();
+		modelTitleCode.removeAllElements();
 		lStockAvailable.setVisible(false);
 		fStockAvailable.setVisible(false);
 		fTitle.setText("");
+		lPrice.setText("PRICE");
 		fPrice.setText("");
 		lTotal.setText("TOTAL:");
 		fTotal.setText("");
 	}
 
-	//Use this for RENT and PENALTY
+	// Use this for RENT and PENALTY
+	@Override
 	public Object getTodayDate() {
-		todayDate =  fDateToday.getText();
+		todayDate = fDateToday.getText();
 		return todayDate;
 	}
-//Use this for RENT and PENALTY
+
+	// Use this for RENT and PENALTY
+	@Override
 	public Object getDate() {
 		Date = fDate.getText();
 		return Date;
 	}
-
+//--------------FREE RENT---------------------
+@Override
+public void freeRentReceipt() {
+	lDate.setVisible(true);
+	lDate.setText("RETURNING DATE:");
+	fDate.setVisible(true);
+	fTotal.setText("100");
+	lTotal.setText("TOTAL IN POINTS");
+	lStockAvailable.setVisible(true);
+	lStockAvailable.setText("STOCK AVAILABLE:");
+	fStockAvailable.setVisible(true);
+	fDate.setText(returningDay());
+	lPrice.setText("PRICE IN POINTS");
+	fPrice.setText("100");
+}
 
 }

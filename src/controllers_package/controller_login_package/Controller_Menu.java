@@ -16,11 +16,11 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 	private Menu menu;
 	private Title title;
 	private Customer customer;
-	private Renting renting;
+	private Receipt renting;
 	private Returning returning;
 	private Controller_Login againControllerLogin;
 	private Controller_Menu controllermenu;
-	private Controller_Sections controllersec;
+	private Controller_Sections controllersection;
 	private Database_Functions database;
 	private StaffEncapsulation staffcapsule;
 	private Sections_Attributes secattri;
@@ -30,6 +30,8 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 
 	
 	public Controller_Menu(StaffEncapsulation staffcapsule) {
+		this.staffcapsule = staffcapsule;
+		staffcapsule = new StaffEncapsulation();
 		username = staffcapsule.getUsername();
 		// Open the Menu with this Controller and passing the username
 		menu = new Menu(this, username);
@@ -63,13 +65,13 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			customer = new Customer();
 			break;
 		// When "Renting" is pressed in the Menu
-		case "albRent":
+		case "bCheckout":
 			menu.dispose();
 			searchby = new String[] {"Choose one", "RECEIPT_TYPE", "DATE_RENTED", "RETURNING_DATE", "MEMBERSHIP_CARD"};
 			secattri = new Sections_Attributes();
 			section = "RECEIPT";
 			secattri.setcontrollerdata(searchby, section);
-			renting = new Renting();
+			renting = new Receipt();
 			break;
 		// When "Returning" is pressed in the Menu
 		case "albReturn":

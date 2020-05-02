@@ -158,6 +158,7 @@ protected static Object selection, selection2;
 		}
 		
 	protected static DefaultComboBoxModel model;
+	protected static DefaultComboBoxModel modelTitleCode;
 	protected static DefaultTableModel tablemodel;
 	
 	
@@ -291,13 +292,14 @@ protected static String[][] tableContent;
 	//-------------RECEIPT----------------------------------------	
 	protected static JLabel lStockAvailable, lReceiptType, lTitleCode, lDate, lDateToday, lCustomerName, lConsecutiveReceipt;
 	protected static JTextField fStockAvailable, fDate, fDateToday, fMembershipCard, fCustomerName, fConsecutiveReceipt;
-	protected static String query, titleName, valueFound1, valueFound2, valueFound3, ReceiptType, MembershipCard, tableName, valuetoFound1,valuetoFound2, valuetoFound3, columnResult;
-	protected static int freeRents, points, stockAvailable, price, consecutiveReceipt;
+	protected static String priceN, query, titleName, valueFound1, valueFound2, valueFound3, ReceiptType, MembershipCard, tableName, valuetoFound1,valuetoFound2, valuetoFound3, columnResult;
+	protected static int updateQueryStock, pointsEarn, updateQuery, totall, freeRents, points, stockAvailable, price, consecutiveReceipt;
 	protected static Object receiptNum, total, Date, todayDate, titleCode, referenceValue, ObconsecutiveReceipt;
 	protected static JComboBox<String> comboTitleCode, cReceiptType;
 	protected static Object[] titleCodeList;
 	protected static String[] receiptTypeList;
 	protected static ResultSet resultQuery;
+	protected static boolean insertDoneReceiptTable, loyaltyCardFound, loyaltyCardDone;
 			
 	public String getTableName() {
 		// TODO Auto-generated method stub
@@ -336,6 +338,9 @@ protected static String[][] tableContent;
 	}
 	public Object getvalueFound1() {
 		return valueFound1;
+	}
+	public Object getvalueFound3() {
+		return valueFound3;
 	}
 	public void setConsecutiveReceipt(int consecutiveReceipt) {
 		this.consecutiveReceipt = consecutiveReceipt;
