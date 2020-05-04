@@ -102,4 +102,11 @@ public class PopUp_Windows{
 			    "Days Remaining",
 			    JOptionPane.INFORMATION_MESSAGE);
 	}
+	public void noTableSelected() {
+		JOptionPane.showMessageDialog(null,
+			    "Please, select a table. \nYou can do that in the upper section",
+			    "No Table",
+			    JOptionPane.ERROR_MESSAGE);
+		
+	}
 }

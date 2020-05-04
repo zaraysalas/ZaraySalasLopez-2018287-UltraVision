@@ -33,6 +33,7 @@ public class Controller_Login implements ActionListener{
 		// Get the values which were input by the user in "Login".
 		username = loginwindow.getUsername();
 		password = loginwindow.getPassword();
+		//System.out.println(username + password + " in Controller_Login");//Checking point
 		// New instance of StaffEncapsulation with the values from "FirstWindowLogin".
 		staffcapsule = new StaffEncapsulation();
 		staffcapsule.setstaff(username, password);

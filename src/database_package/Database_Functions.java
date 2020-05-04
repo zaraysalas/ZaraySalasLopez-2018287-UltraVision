@@ -12,7 +12,8 @@ import controllers_package.controllers_sections_package.Controller_Sections;
 
 public class Database_Functions extends Database_Connection {
 
-	private String query1, query, columnName, type, tableName, equalsto;
+	private String query1, query, columnName, type, tableName;
+	private Object equalsto;
 	private int updateQuery, freeRents, points, size, stock_available, newstock_available, insertStaff, price, penalty,
 			amountColumn, amountrows, consecutive;
 	private PreparedStatement stmt;
@@ -105,9 +106,9 @@ public class Database_Functions extends Database_Connection {
 
 		tableName = secattri.getSection();
 		columnName = (String) secattri.getSelection();
-		equalsto = (String) secattri.getSelection2();
+		equalsto = secattri.getSelection2();
 		query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = '" + equalsto + "';";
-		// System.out.println(query);
+		System.out.println(query);
 		search();
 	}
 
@@ -145,26 +146,30 @@ public class Database_Functions extends Database_Connection {
 			resultQuery.beforeFirst();
 			resultQuery.next();
 
-			// Get the actual table's content
-			tableContent = new String[amountrows][amountColumn];
-			for (int j = 0; j <= amountrows; j++) {
-				for (int i = 1; i <= amountColumn; i++) {
-					tableContent[j][i - 1] = resultQuery.getString(i);
-				}
+			try {
+				// Get the actual table's content
+				tableContent = new String[amountrows][amountColumn];
+				for (int j = 0; j <= amountrows; j++) {
+					for (int i = 1; i <= amountColumn; i++) {
+						tableContent[j][i - 1] = resultQuery.getString(i);
+					}
 
-				if (resultQuery.next()) {
-				} else {
-					break;
+					if (resultQuery.next()) {
+					} else {
+						break;
+					}
 				}
+				/*
+				 * Sequence to check the data returned for (String a : tableNames) {
+				 * System.out.print(a + " , "); } System.out.println();
+				 * 
+				 * for (String[] a : tableContent) { for (String i : a) { System.out.print(i +
+				 * " , "); } System.out.println("\n"); }
+				 */
+				secattri.setTableContent(tableContent);
+			} catch (Exception e) {
+				secattri.setTableContent(null);
 			}
-			/*
-			 * Sequence to check the data returned for (String a : tableNames) {
-			 * System.out.print(a + " , "); } System.out.println();
-			 * 
-			 * for (String[] a : tableContent) { for (String i : a) { System.out.print(i +
-			 * " , "); } System.out.println("\n"); }
-			 */
-			secattri.setTableContent(tableContent);
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
@@ -554,5 +559,8 @@ public class Database_Functions extends Database_Connection {
 		}
 		return updateQuery;
 
+	}
+	public void returnTitle() {
+		
 	}
 }

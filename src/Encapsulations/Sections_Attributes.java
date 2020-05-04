@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Sections_Attributes {
 	protected static JTextArea message;
@@ -157,9 +158,8 @@ protected static Object selection, selection2;
 			return sAfterSearch;
 		}
 		
-	protected static DefaultComboBoxModel model;
-	protected static DefaultComboBoxModel modelTitleCode;
-	protected static DefaultTableModel tablemodel;
+	protected static DefaultComboBoxModel model, modelTitleCode;
+	//protected static DefaultTableModel tablemodel;
 	
 	
 	protected static boolean matchFound;
@@ -447,6 +447,11 @@ protected static String[][] tableContent;
 		this.section = section;
 		
 	}
+	//---------------RETURNING-------------------
+
+	protected static DefaultTableModel tableSearchModel;
+	
+	
 
 
 

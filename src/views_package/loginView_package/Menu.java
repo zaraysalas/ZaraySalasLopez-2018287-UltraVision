@@ -34,7 +34,7 @@ public class Menu extends JFrame{
 
 	private void attributesMenu() {
 		lTitle = new JLabel("WELCOME " + username);
-		
+		//System.out.println(username + " in menu");//Checking point
 		this.setTitle("Ultra-Vision");
 		this.setVisible(true);
 		this.setBounds(400, 100, 250, 380);

@@ -14,15 +14,11 @@ public interface Sections_Interface {
 	public void AddTop(int p1Addwidth, int p1Addheight, String titleBorder);
 	public void Add();
 	public void AddButton(String AddButton);
-
-	//public void RentReceipt();
-	//public void PenaltyReceipt();
 	public void AddMovies();
 	public void AddMusic();
 	public void AddBoxSet();
 	public void AddConcert();
 	public void LoyaltyCard();
-	public void RentedList() ;
 	public void Validation();
 	//----------------
 	public String getSelection();

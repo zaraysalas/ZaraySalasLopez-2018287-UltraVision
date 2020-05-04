@@ -43,10 +43,12 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 
 	protected Sections_Attributes secattri;
 	protected Controller_Sections controllersection;
+	protected Controller_Returning contReturn;
 
 	public Sections() {
 		super();
 		controllersection = new Controller_Sections();
+		contReturn = new Controller_Returning();
 		secattri = new Sections_Attributes();
 		secattri.setFrameSize(200, 80, 330, 480);
 		secattri.setFrameHeightTable(480);
@@ -62,17 +64,22 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		sectionFrame.setBounds(secattri.getFrameLeft(), secattri.getFrameUpper(), secattri.getFrameWidth(),
 				secattri.getFrameHeight());
 		// Activate this at the end
-		// sectionFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		sectionFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		/*
-		 * sectionFrame.addWindowListener(new WindowAdapter() {
-		 * 
-		 * @Override public void windowClosing(WindowEvent we) { String OptionButtons[]
-		 * = { "Exit", "Stay" }; int PromptResult = JOptionPane.showOptionDialog(null,
-		 * "Are you sure you want to exit \n Ultra-Vision System?", "EXIT SYSTEM",
-		 * JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, OptionButtons,
-		 * OptionButtons[1]); if (PromptResult == 0) { System.exit(0); } } });
-		 */
+		sectionFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+		sectionFrame.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent we) {
+				String OptionButtons[] = { "Exit", "Stay" };
+				int PromptResult = JOptionPane.showOptionDialog(null,
+						"Are you sure you want to exit \n Ultra-Vision System?", "EXIT SYSTEM",
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, OptionButtons, OptionButtons[1]);
+				if (PromptResult == 0) {
+					System.exit(0);
+				}
+			}
+		});
+
 		sectionFrame.getContentPane().setLayout(new BoxLayout(sectionFrame.getContentPane(), BoxLayout.X_AXIS));
 
 	}
@@ -149,16 +156,16 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 	public void table(int frameHeightTable) {
 		sectionFrame.setBounds(200, 40, 800, secattri.getFrameHeightTable());
 		// secattri = new Sections_Attributes();
-		tableSearch = new JTable(secattri.getTableContent(), secattri.getTableNames());
+		tableSearchModel = new DefaultTableModel(secattri.getTableContent(), secattri.getTableNames());
+		tableSearch = new JTable(tableSearchModel);
 		tableSearch.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		p2 = new JPanel();
-		sectionFrame.add(p2);
+		sectionFrame.add(p2 = new JPanel());
 		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+		p2.setPreferredSize(new Dimension(400, 330));
+		p2.setMaximumSize(new Dimension(400, 300));
 		p2.add(Box.createRigidArea(new Dimension(0, 50)));
 		p2.setBorder(BorderFactory.createTitledBorder(getRaised(), secattri.getSection() + " TABLE", TitledBorder.LEFT,
 				TitledBorder.DEFAULT_POSITION));
-		p2.setPreferredSize(new Dimension(450, 300));
-		p2.setMaximumSize(new Dimension(450, 300));
 
 		scroll = new JScrollPane(tableSearch);
 		scroll.setViewportView(tableSearch);
@@ -229,8 +236,6 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 
 	}
 
-	
-
 	@Override
 	public void LoyaltyCard() {
 		p1.add(p1loyaltyCard = new JPanel());
@@ -250,14 +255,6 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		p1loyaltyCard.add(lAmountFreeRents = new JLabel("amount of free rents here"));
 
 		p1loyaltyCard.add(Box.createRigidArea(new Dimension(0, 10)));
-	}
-
-	public void RentedList() {
-		p1.add(p1rentedList = new JPanel());
-		p1rentedList.setPreferredSize(new Dimension(330, 300));
-		p1rentedList.setMaximumSize(new Dimension(330, 300));
-		p1rentedList.setBorder(BorderFactory.createTitledBorder(getRaised(), "RENTED LIST", TitledBorder.LEFT,
-				TitledBorder.DEFAULT_POSITION));
 	}
 
 	@Override
@@ -364,11 +361,12 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		MembershipCard = fMembershipCard.getText();
 		return MembershipCard;
 	}
-	//Display and change label
+
+	// Display and change label
 	// Membership_card will trigger...
 	@Override
 	public void fMembershipLevel() {
-		
+
 		fMembership.setText(null);
 		fMembership.setText(valueFound1);
 
@@ -401,7 +399,7 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 	// If the user select RENT
 	@Override
 	public void RentReceipt() {
-		
+
 		lDate.setVisible(true);
 		lDate.setText("RETURNING DATE:");
 		fDate.setVisible(true);
@@ -412,6 +410,7 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		fDate.setText(returningDay());
 		lPrice.setText("PRICE PER DAY");
 	}
+
 //this is use in RENT and PENALTY
 	@Override
 	public void comboTitleCode() {
@@ -437,9 +436,9 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		fTitle.setText(secattri.getTitleName());
 		fPrice.setText("" + secattri.getPrice());
 		fStockAvailable.setText("" + secattri.getStockAvailable());
-		
+
 		fDate.setText((String) secattri.getDate());
-		fTotal.setText(""+total);
+		fTotal.setText("" + total);
 	}
 
 	@Override
@@ -479,18 +478,18 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 	// If the option PENALTY is select...
 	@Override
 	public void PenaltyReceipt() {
-		
+
 		lDate.setVisible(true);
 		lDate.setText("RETURNING DATE:");
 		fDate.setVisible(true);
-		fDate.setText(""+secattri.getDate());
+		fDate.setText("" + secattri.getDate());
 		lPrice.setText("PENALTY COST");
 		lStockAvailable.setVisible(true);
 		lStockAvailable.setText("DAYS PASSED:");
 		fStockAvailable.setVisible(true);
 		fStockAvailable.setText("" + secattri.getDate());
 		lTotal.setText("TOTAL:");
-		fTotal.setText(""+ total);
+		fTotal.setText("" + total);
 	}
 
 	@Override
@@ -527,20 +526,25 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		Date = fDate.getText();
 		return Date;
 	}
-//--------------FREE RENT---------------------
-@Override
-public void freeRentReceipt() {
-	lDate.setVisible(true);
-	lDate.setText("RETURNING DATE:");
-	fDate.setVisible(true);
-	fTotal.setText("100");
-	lTotal.setText("TOTAL IN POINTS");
-	lStockAvailable.setVisible(true);
-	lStockAvailable.setText("STOCK AVAILABLE:");
-	fStockAvailable.setVisible(true);
-	fDate.setText(returningDay());
-	lPrice.setText("PRICE IN POINTS");
-	fPrice.setText("100");
-}
 
+//--------------FREE RENT---------------------
+	@Override
+	public void freeRentReceipt() {
+		lDate.setVisible(true);
+		lDate.setText("RETURNING DATE:");
+		fDate.setVisible(true);
+		fTotal.setText("100");
+		lTotal.setText("TOTAL IN POINTS");
+		lStockAvailable.setVisible(true);
+		lStockAvailable.setText("STOCK AVAILABLE:");
+		fStockAvailable.setVisible(true);
+		fDate.setText(returningDay());
+		lPrice.setText("PRICE IN POINTS");
+		fPrice.setText("100");
+	}
+
+//--------------RETURNING---------------------
+	public void ReturningReturnButton() {
+
+	}
 }

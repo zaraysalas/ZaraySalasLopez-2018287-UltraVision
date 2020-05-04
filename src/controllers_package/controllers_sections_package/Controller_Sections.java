@@ -26,8 +26,8 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 	private Menu menu;
 	private Controller_Menu contmenu;
 	private Database_Functions dbfunc;
-	private Title title;
-	private Customer customer;
+	//private Title title;
+	//private Customer customer;
 	protected Sections_Attributes secattri;
 	private Sections classection;
 	private StaffEncapsulation staffcapsule;
@@ -207,12 +207,11 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 
 		switch (e.getActionCommand()) {
 
-		case "bMenu":
-
-			// staffcapsule = new StaffEncapsulation();
-
+		case "bMenu":			
+			staffcapsule = new StaffEncapsulation();
+			staffcapsule.setstaff("", "");
 			contmenu = new Controller_Menu(staffcapsule);
-
+			
 			break;
 
 		case "bSearch":
@@ -375,14 +374,13 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 			// Button RECEIPT will add to PENALTY_TABLE
 			if (insertDoneReceiptTable && updateQueryStock > 0) {
 				new PopUp_Windows().stockUpdated();
-				System.out.println("RECEIPT_ TABLE insert");
+				//System.out.println("RECEIPT_ TABLE insert");
 			} else {
-				System.out.println("RECEIPT_ TABLE  was not insert");
+				//System.out.println("RECEIPT_ TABLE  was not insert");
 				new Sections().noData();
 			}
 			}
 			break;
-
 		}
 
 	}

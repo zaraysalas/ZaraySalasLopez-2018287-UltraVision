@@ -1,5 +1,6 @@
 package controllers_package.controller_login_package;
 
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -26,13 +27,13 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 	private Sections_Attributes secattri;
 	
 	private String[] searchby;
-	private String password, username, section, searchValue, selection, selection1, name, genre, format, category, className;
+	private String password, username, searchValue, selection, selection1, name, genre, format, category, className;
 
 	
 	public Controller_Menu(StaffEncapsulation staffcapsule) {
 		this.staffcapsule = staffcapsule;
-		staffcapsule = new StaffEncapsulation();
 		username = staffcapsule.getUsername();
+		//System.out.println(username + " in Controller_Menu");//Checking point
 		// Open the Menu with this Controller and passing the username
 		menu = new Menu(this, username);
 		
@@ -75,8 +76,11 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			break;
 		// When "Returning" is pressed in the Menu
 		case "albReturn":
-			System.out.println("Button RETURNING was pressed");
 			menu.dispose();
+			searchby = new String[] {"Choose one", "MEMBERSHIP_CARD", "CODE", "DATE_RENTED", "RETURNING_DATE"};
+			secattri = new Sections_Attributes();
+			section = "RENTED_LIST";
+			secattri.setcontrollerdata(searchby, section);
 			returning = new Returning();
 			break;
 		// When "Back to login" is pressed in the Menu
@@ -84,6 +88,7 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			System.out.println("Button BACK was pressed");
 			againControllerLogin = new Controller_Login();
 			menu.dispose();
+			
 			break;
 		}
 

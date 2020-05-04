@@ -2,8 +2,8 @@ package views_package.sectionsView_package;
 
 import java.awt.Dimension;
 import java.awt.event.ItemListener;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+//import java.text.SimpleDateFormat;
+//import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 
-import controllers_package.controllers_sections_package.Controller_Sections;
+//import controllers_package.controllers_sections_package.Controller_Sections;
 
 public class Receipt extends Sections{
 	
@@ -23,14 +23,10 @@ public class Receipt extends Sections{
 		secattri.setFrameHeightTable(700);
 		secattri.setP1height(330, 650);
 		p1(p1width, p1height);
-		
 		Search();
-		
 		secattri.setp1Add(330, 600,"RECEIPT");
 		AddTop(p1Addwidth, p1Addheight, titleBorder);
-		
 		Add();
-		
 		secattri.setAddButton("RECEIPT");
 		AddButton(AddButton);
 	}
