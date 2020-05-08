@@ -8,17 +8,22 @@ public interface Sections_Interface {
 
 	public void FrameAttributes(int frameLeft, int frameUpper, int frameWidth, int frameHeight);
 	public void Search();
+	public void modifyButtons();
 	
 	public void p1(int p1width, int p1height);
-	public void table(int frameHeightTable);
+	
+	public void table(int frameLerftTable,int frameUpperTable,int frameWidthTableint, int frameHeightTable);
+	public void tableSearchModel();
+	
 	public void AddTop(int p1Addwidth, int p1Addheight, String titleBorder);
 	public void Add();
+	public void AddCustomer();
 	public void AddButton(String AddButton);
 	public void AddMovies();
 	public void AddMusic();
 	public void AddBoxSet();
 	public void AddConcert();
-	public void LoyaltyCard();
+
 	public void Validation();
 	//----------------
 	public String getSelection();
@@ -27,7 +32,6 @@ public interface Sections_Interface {
 	public String getComboGenre();
 	public String getFrelease();
 	public String getComboFormat();
-	public String getComboCategory();
 	public String getFstock();
 	//-----------------CUSTOMER------------------------
 	public String getfFirstName();
@@ -51,4 +55,9 @@ public interface Sections_Interface {
 	public void noData();
 	//--------------FREE RENT---------------------
 	public void freeRentReceipt();
+	void Update();
+
+
+
+	
 }

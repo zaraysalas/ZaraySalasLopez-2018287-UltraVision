@@ -28,6 +28,7 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 	
 	private String[] searchby;
 	private String password, username, searchValue, selection, selection1, name, genre, format, category, className;
+	private Database_Functions dbfunc;
 
 	
 	public Controller_Menu(StaffEncapsulation staffcapsule) {
@@ -52,6 +53,18 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			searchby = new String[] {"Choose one", "Genre", "Release_Year", "Format"};
 			section = "TITLES";
 			secattri.setcontrollerdata(searchby, section);
+			//Display a table with all data
+			dbfunc = new Database_Functions();
+			dbfunc.searchAll();
+
+			matchFound = secattri.getMatchFound();
+			if (matchFound) {
+				tableNames = secattri.getTableNames();
+				tableContent = secattri.getTableContent();
+			} else {
+				new PopUp_Windows().noData();
+			}
+			//---------------------
 			//... the window for Title is showed.
 			title = new Title();
 			
@@ -63,6 +76,18 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			secattri = new Sections_Attributes();
 			section = "CUSTOMER";
 			secattri.setcontrollerdata(searchby, section);
+			//Display a table with all data
+			dbfunc = new Database_Functions();
+			dbfunc.searchAll();
+
+			matchFound = secattri.getMatchFound();
+			if (matchFound) {
+				tableNames = secattri.getTableNames();
+				tableContent = secattri.getTableContent();
+			} else {
+				new PopUp_Windows().noData();
+			}
+			//---------------------
 			customer = new Customer();
 			break;
 		// When "Renting" is pressed in the Menu
@@ -72,6 +97,29 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			secattri = new Sections_Attributes();
 			section = "RECEIPT";
 			secattri.setcontrollerdata(searchby, section);
+			//Display a table with all data
+			dbfunc = new Database_Functions();
+			dbfunc.searchAll();
+			//Display a table with all data
+			dbfunc = new Database_Functions();
+			dbfunc.searchAll();
+
+			matchFound = secattri.getMatchFound();
+			if (matchFound) {
+				tableNames = secattri.getTableNames();
+				tableContent = secattri.getTableContent();
+			} else {
+				new PopUp_Windows().noData();
+			}
+			//---------------------
+			matchFound = secattri.getMatchFound();
+			if (matchFound) {
+				tableNames = secattri.getTableNames();
+				tableContent = secattri.getTableContent();
+			} else {
+				new PopUp_Windows().noData();
+			}
+			//---------------------
 			renting = new Receipt();
 			break;
 		// When "Returning" is pressed in the Menu
@@ -81,6 +129,18 @@ public class Controller_Menu extends Sections_Attributes implements ActionListen
 			secattri = new Sections_Attributes();
 			section = "RENTED_LIST";
 			secattri.setcontrollerdata(searchby, section);
+			//Display a table with all data
+			dbfunc = new Database_Functions();
+			dbfunc.searchAll();
+
+			matchFound = secattri.getMatchFound();
+			if (matchFound) {
+				tableNames = secattri.getTableNames();
+				tableContent = secattri.getTableContent();
+			} else {
+				new PopUp_Windows().noData();
+			}
+			//---------------------
 			returning = new Returning();
 			break;
 		// When "Back to login" is pressed in the Menu

@@ -23,8 +23,8 @@ public class Sections_Attributes {
 	protected static JTextArea message;
 	protected static JPanel p, p1, p1search, p1searchSquares, p1searchButtons, p1add;
 	protected static JPanel p1addTitleName,p2, p1addButtons, p1addlabels, p1loyaltyCard, p1rentedList;
-	protected static JPanel p1searchSelection2;
-	protected static JButton bMenu, bSearch, bAll, bAdd, breceipt;
+	protected static JPanel p1Menu, p1searchSelection2;
+	protected static JButton bNew, bMenu, bSearch, bAll, bAdd, breceipt;
 	protected static JLabel lTotal, label1, lName, lGenre, lPrice;
 	protected static JLabel lReceiptNum, lPenalty, lRelease, lFormat, lCategory, lStock;
 	protected static JLabel lsearchby, lmemberNum, lmemberNumber, lPoint, lAmountPoints, lFreeRents, lAmountFreeRents;
@@ -238,6 +238,7 @@ protected static String[][] tableContent;
 		public long getCreditCard() {
 			return creditCard;
 		}
+		
 		public void setCreditCard(int creditCard) {
 			this.creditCard = creditCard;
 		}
@@ -247,9 +248,12 @@ protected static String[][] tableContent;
 			this.lastName = lastName;
 			this.membershipLevel = membershipLevel;
 		}
-		
+		/*
+	public String getComboCategory() {
+			return comboCategory;
+		}*/
 	protected static String titleBorder;
-	protected static int frameHeightTable, p1Addwidth, p1Addheight, frameLeft, frameUpper, frameWidth, frameHeight;
+	protected static int frameLerftTable, frameUpperTable, frameWidthTableint,frameHeightTable, p1Addwidth, p1Addheight, frameLeft, frameUpper, frameWidth, frameHeight;
 		public void setp1Add(int p1Addwidth, int p1Addheight, String titleBorder) {
 		this.p1Addwidth = p1Addwidth;
 		this.p1Addheight = p1Addheight;
@@ -282,9 +286,21 @@ protected static String[][] tableContent;
 		public int getFrameHeight() {
 			return frameHeight;
 		}
-		public void setFrameHeightTable(int frameHeightTable) {
+		public void setFrameHeightTable(int frameLerftTable,int frameUpperTable,int frameWidthTableint,int frameHeightTable) {
+			this.frameLerftTable = frameLerftTable;
+			this.frameUpperTable = frameUpperTable;
+			this.frameWidthTableint = frameWidthTableint;
 			this.frameHeightTable = frameHeightTable;
 			
+		}
+		public int getFrameLeftTable() {
+			return frameLerftTable;
+		}
+		public int getFrameUpperTable() {
+			return frameUpperTable;
+		}
+		public int getFrameWidthTable() {
+			return frameWidthTableint;
 		}
 		public int getFrameHeightTable() {
 			return frameHeightTable;
@@ -302,7 +318,6 @@ protected static String[][] tableContent;
 	protected static boolean insertDoneReceiptTable, loyaltyCardFound, loyaltyCardDone;
 			
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return tableName;
 	}
 	public String getvaluetoFound1() {
@@ -451,7 +466,33 @@ protected static String[][] tableContent;
 
 	protected static DefaultTableModel tableSearchModel;
 	
-	
+	//----------------DELETE --------------------------
+	protected static JButton bDelete, bUpdate;
+	protected static JPanel p2TableButtons, p1Modify, p1ModifyButtons;
+	protected static String where;
+
+	public void setTableNames(String tableName) {
+	this.tableName = tableName;
+		
+	}
+	public void setWhere(String where) {
+		this.where = where;
+		
+	}
+	public String getWhere() {
+		// TODO Auto-generated method stub
+		return where;
+	}
+
+	//------------------UPDATE----------------------
+	protected static String[] categoryList;
+	protected static JLabel lMembershipCard;
+
+	public void setCategoryUpdate(String category) {
+		this.category= category;
+		
+	}
+
 
 
 

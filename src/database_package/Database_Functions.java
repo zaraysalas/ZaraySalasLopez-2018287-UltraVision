@@ -27,7 +27,7 @@ public class Database_Functions extends Database_Connection {
 	private Object[] sAfterSearch, titleCodeList, titleNameList;
 	private Sections_Attributes secattri;
 	private Controller_Sections controllersec;
-	private String valueFound1, valueFound2, valueFound3;
+	private String table, valueFound1, valueFound2, valueFound3;
 
 	public Database_Functions() {
 		secattri = new Sections_Attributes();
@@ -102,7 +102,6 @@ public class Database_Functions extends Database_Connection {
 	}
 
 	public void searchby() {
-		con = getDatabaseConexion();
 
 		tableName = secattri.getSection();
 		columnName = (String) secattri.getSelection();
@@ -113,13 +112,56 @@ public class Database_Functions extends Database_Connection {
 	}
 
 	public void searchAll() {
-		con = getDatabaseConexion();
 		query = "SELECT * FROM " + secattri.getSection() + ";";
 		search();
+
+	}
+
+	public void searchbyJoin() {
+		tableName = secattri.getSection();
+		columnName = (String) secattri.getSelection();
+		equalsto = secattri.getSelection2();
+		try {
+			con = getDatabaseConexion();
+			if (tableName.equals("TITLES")) {
+				query = "SELECT CATEGORY FROM " + tableName + " WHERE " + columnName + " = '" + equalsto + "';";
+				stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
+				// Execute the query
+				resultQuery = stmt.executeQuery(query);
+				matchFound = resultQuery.next();
+				table = resultQuery.getString("CATEGORY");
+				switch (table) {
+				case "ML":
+					table = "MUSIC";
+					break;
+				case "VL":
+					table = "MOVIE";
+					break;
+				case "TV":
+					table = "BOX_SET";
+					break;
+				}
+				query = "SELECT " + tableName + ".*, " + table + ".* " + " FROM " + table + " INNER JOIN " + tableName
+						+ " " + "ON " + tableName + ".CODE = " + table + ".CODE WHERE " + tableName + "." + columnName
+						+ " = '" + equalsto + "' ;";
+			} else if (tableName.equals("CUSTOMER")) {
+				query = "SELECT " + tableName + ".*, LOYALTY_CARD.* " + " FROM LOYALTY_CARD INNER JOIN " + tableName
+						+ " " + "ON " + tableName + ".MEMBERSHIP_CARD = LOYALTY_CARD.MEMBERSHIP_CARD WHERE " + tableName
+						+ "." + columnName + " = '" + equalsto + "' ;";
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// System.out.println(query);//Checking point
+
+		search();
+
 	}
 
 	public void search() {
 		try {
+			con = getDatabaseConexion();
 			stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
 			// Execute the query
 			resultQuery = stmt.executeQuery(query);
@@ -306,11 +348,11 @@ public class Database_Functions extends Database_Connection {
 			// Make the ResultSet starts again
 			resultQuery.first();
 			String columnname = secattri.getvaluetoFound1();
-			//System.out.println(columnname);
+			// System.out.println(columnname);
 			// Add each piece of information from the ResultSet in array
 			for (int i = 0; i < size; i++) {
 				titleCodeList[i] = resultQuery.getObject(columnname);
-				//System.out.println(titleCodeList[i]);// to check if works
+				// System.out.println(titleCodeList[i]);// to check if works
 				resultQuery.next();
 			}
 			// Encapsulate the array to be used in a combobox
@@ -354,7 +396,7 @@ public class Database_Functions extends Database_Connection {
 					+ "VALUES ('" + secattri.getReceiptType() + "', '" + secattri.getDate() + "', '"
 					+ secattri.getTodayDate() + "', '" + secattri.getMembershipCard() + "', '" + secattri.getTotal()
 					+ "');";
-		}else if( secattri.getReceiptType().equals("FREE RENT")) {
+		} else if (secattri.getReceiptType().equals("FREE RENT")) {
 			query = "INSERT INTO RECEIPT(RECEIPT_TYPE, DATE_RENTED, RETURNING_DATE, MEMBERSHIP_CARD, TOTAL)"
 					+ "VALUES ('" + secattri.getReceiptType() + "', '" + secattri.getTodayDate() + "', '"
 					+ secattri.getDate() + "', '" + secattri.getMembershipCard() + "', '0');";
@@ -483,13 +525,17 @@ public class Database_Functions extends Database_Connection {
 		return loyaltyCardDone;
 	}
 
+	public void updateCustomer() {
+
+	}
+
 	public String returningDate() {
 		String valueFound1 = null;
 		con = getDatabaseConexion();
 
 		query = "SELECT RETURNING_DATE FROM RENTED_LIST WHERE MEMBERSHIP_CARD = '" + secattri.getMembershipCard()
 				+ "' and CODE = " + secattri.getCodeTitle() + ";";
-		//System.out.println("returningDate(): "+query);
+		// System.out.println("returningDate(): "+query);
 		try {
 			stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
 			// Execute the query
@@ -511,7 +557,7 @@ public class Database_Functions extends Database_Connection {
 		con = getDatabaseConexion();
 		try {
 			query = "SELECT STOCK_AVAILABLE FROM TITLES WHERE CODE = " + secattri.getCodeTitle() + ";";
-			//System.out.println(query); // checking
+			// System.out.println(query); // checking
 			stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
 			// Execute the query
 			resultQuery = stmt.executeQuery(query);
@@ -541,16 +587,36 @@ public class Database_Functions extends Database_Connection {
 		return updateQuery;
 	}
 
-	public int deleteRentedList() {
+	public int update() {
 		con = getDatabaseConexion();
 		try {
-			query = "DELETE FROM RENTED_LIST WHERE MEMBERSHIP_CARD = " + secattri.getMembershipCard() +" AND CODE = " + secattri.getCodeTitle() +";";
-			//System.out.println("updateStock(): "+ query);
+			query = "UPDATE CUSTOMER SET LEVEL_MEMBERSHIP = '"+secattri.getCategory()+"' WHERE MEMBERSHIP_CARD = "+secattri.getMembershipCard()+";";
+			System.out.println(query); // checking point
 			stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
 			// Execute the query
 			updateQuery = stmt.executeUpdate(query);
-			
-			System.out.println("updateStock(): "+ updateQuery);
+
+			// System.out.println("updateStock(): "+updateQuery);
+
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updateQuery;
+	}
+
+	public int deleteRentedList() {
+		con = getDatabaseConexion();
+		try {
+			query = "DELETE FROM RENTED_LIST WHERE MEMBERSHIP_CARD = " + secattri.getMembershipCard() + " AND CODE = "
+					+ secattri.getCodeTitle() + ";";
+			// System.out.println("updateStock(): "+ query);
+			stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
+			// Execute the query
+			updateQuery = stmt.executeUpdate(query);
+
+			System.out.println("updateStock(): " + updateQuery);
 
 			stmt.close();
 			con.close();
@@ -560,7 +626,19 @@ public class Database_Functions extends Database_Connection {
 		return updateQuery;
 
 	}
-	public void returnTitle() {
-		
-	}
+	/*
+	 * public int delete() { con = getDatabaseConexion(); try { query =
+	 * "DELETE FROM "+secattri.getTableName()+" WHERE "+secattri.getWhere()+" = " +
+	 * secattri.getReferenceValue() +";"; System.out.println("updateStock(): "+
+	 * query); stmt = con.prepareStatement(query,
+	 * ResultSet.TYPE_SCROLL_INSENSITIVE); // Execute the query updateQuery =
+	 * stmt.executeUpdate(query);
+	 * 
+	 * System.out.println("deleteTitle(): "+ updateQuery);
+	 * 
+	 * stmt.close(); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+	 * return updateQuery;
+	 * 
+	 * }
+	 */
 }

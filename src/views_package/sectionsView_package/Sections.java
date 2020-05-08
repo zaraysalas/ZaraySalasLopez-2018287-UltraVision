@@ -50,11 +50,7 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		controllersection = new Controller_Sections();
 		contReturn = new Controller_Returning();
 		secattri = new Sections_Attributes();
-		secattri.setFrameSize(200, 80, 330, 480);
-		secattri.setFrameHeightTable(480);
-		secattri.setP1height(330, 450);
-		secattri.setAddButton("ADD_TITLE");
-		secattri.setp1Add(330, 300, "ADD");
+		
 	}
 
 	@Override
@@ -94,8 +90,9 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 
 		bMenu.setActionCommand("bMenu");
 		bMenu.addActionListener(controllersection);
-		p1.add(bMenu);
-		p1.add(p1search = new JPanel());
+		p1.add(p1Menu = new JPanel());
+		p1Menu.add(bMenu);
+		p1Menu.add(p1search = new JPanel());
 	}
 
 	@Override
@@ -132,16 +129,21 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		p1searchButtons.add(bSearch);
 		p1searchButtons.add(Box.createRigidArea(new Dimension(10, 40)));
 
-		bAll = new JButton("SHOW ALL");
-		bAll.setActionCommand("bSearchAll");
-		bAll.addActionListener(controllersection);
-		p1searchButtons.add(bAll);
+
+
+
+	}
+	@Override
+	public void modifyButtons() {
 
 	}
 
 	@Override
 	public void AddTop(int p1Addwidth, int p1Addheight, String titleBorder) {
-
+		bNew.setVisible(false);
+		if(secattri.getSection().equals("CUSTOMER")) {bUpdate.setVisible(false);}
+		
+		p1.setPreferredSize(new Dimension(secattri.getP1width(), secattri.getP1height()));
 		p1.add(p1add = new JPanel());
 		p1add.setLayout(new BoxLayout(p1add, BoxLayout.Y_AXIS));
 		p1add.setPreferredSize(new Dimension(secattri.getP1Addwidth(), secattri.getP1Addheight()));
@@ -152,29 +154,8 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		p1addlabels.setLayout(new GridLayout(0, 2, 0, 8));
 	}
 
-	@Override
-	public void table(int frameHeightTable) {
-		sectionFrame.setBounds(200, 40, 800, secattri.getFrameHeightTable());
-		// secattri = new Sections_Attributes();
-		tableSearchModel = new DefaultTableModel(secattri.getTableContent(), secattri.getTableNames());
-		tableSearch = new JTable(tableSearchModel);
-		tableSearch.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		sectionFrame.add(p2 = new JPanel());
-		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
-		p2.setPreferredSize(new Dimension(400, 330));
-		p2.setMaximumSize(new Dimension(400, 300));
-		p2.add(Box.createRigidArea(new Dimension(0, 50)));
-		p2.setBorder(BorderFactory.createTitledBorder(getRaised(), secattri.getSection() + " TABLE", TitledBorder.LEFT,
-				TitledBorder.DEFAULT_POSITION));
-
-		scroll = new JScrollPane(tableSearch);
-		scroll.setViewportView(tableSearch);
-		p2.add(scroll);
-
-		Validation();
-
-	}
-
+	
+	
 	@Override
 	public void Add() {
 		p1addlabels.add(lName = new JLabel("NAME:"));
@@ -194,12 +175,46 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		p1addlabels.add(comboFormat);
 
 		p1addlabels.add(lCategory = new JLabel("CATEGORY"));
-		String[] category = { "Choose one", "MO", "MU", "LC", "BS" };
+		String[] category = { "Choose one", "ML", "VL", "TV" };
 		comboCategory = new JComboBox<String>(category);
 		p1addlabels.add(comboCategory);
 
 		p1addlabels.add(lStock = new JLabel("STOCK:"));
 		p1addlabels.add(fStock = new JTextField());
+	}
+	@Override
+	public void Update() {		
+		p1addlabels.add(lMembershipCard = new JLabel("MEMBERSHIP CARD NUMBER:"));
+		p1addlabels.add(fMembershipCard = new JTextField());
+		
+		p1addlabels.setPreferredSize(new Dimension(350, 70));
+		p1addlabels.setMaximumSize(new Dimension(350, 70));
+		p1addlabels.add(lCategory = new JLabel("CATEGORY:"));
+		categoryList = new String[] { "Choose one", "PR", "ML", "VL", "TV"};
+		comboCategory = new JComboBox<String>(categoryList);
+		p1addlabels.add(comboCategory);
+
+	}
+	public String getCategoryUpdate() {
+		category = (String) comboCategory.getSelectedItem();
+		return category;
+	}
+
+	@Override
+	public void AddCustomer() {
+		p1addlabels.add(lFirstName = new JLabel("FIRST NAME:"));
+		p1addlabels.add(fFirstName = new JTextField());
+
+		p1addlabels.add(lLastName = new JLabel("LAST NAME:"));
+		p1addlabels.add(fLastName = new JTextField());
+
+		p1addlabels.add(lMembership = new JLabel("MEMBERSHIP'S LEVEL:"));
+		memberLevelList = new String[] {"Choose one","MO", "MU", "LC", "BS"};
+		cMemberLevel = new JComboBox<String>(memberLevelList);
+		p1addlabels.add(cMemberLevel);
+		
+		p1addlabels.add(lCreditCard = new JLabel("CREDIT CARD:"));
+		p1addlabels.add(fCreditCard = new JTextField());
 	}
 
 	@Override
@@ -235,27 +250,61 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		// TODO Auto-generated method stub
 
 	}
+	//------------TABLE----------------------
+		@Override
+		public void table(int frameLerftTable,int frameUpperTable,int frameWidthTableint, int frameHeightTable) {
+			sectionFrame.setBounds(secattri.getFrameLeftTable(), secattri.getFrameUpperTable(), secattri.getFrameWidthTable(), secattri.getFrameHeightTable());
 
-	@Override
-	public void LoyaltyCard() {
-		p1.add(p1loyaltyCard = new JPanel());
-		p1loyaltyCard.setPreferredSize(new Dimension(330, 200));
-		p1loyaltyCard.setMaximumSize(new Dimension(330, 200));
-		p1loyaltyCard.setBorder(BorderFactory.createTitledBorder(getRaised(), "LOYALTY CARD", TitledBorder.LEFT,
-				TitledBorder.DEFAULT_POSITION));
+			
+			tableSearchModel = new DefaultTableModel(secattri.getTableContent(), secattri.getTableNames());
+			tableSearch = new JTable(tableSearchModel);
+			tableSearchModel = (DefaultTableModel) tableSearch.getModel();
+			tableSearch.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		p1loyaltyCard.setLayout(new GridLayout(0, 2, 0, 8));
-		p1loyaltyCard.add(lmemberNum = new JLabel("MEMBERSHIP #:"));
-		p1loyaltyCard.add(lmemberNumber = new JLabel("bring here the number"));
+			sectionFrame.add(p2 = new JPanel());
+			p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+			p2.setPreferredSize(new Dimension(400, 330));
+			p2.setMaximumSize(new Dimension(400, 300));
+			p2.add(Box.createRigidArea(new Dimension(0, 50)));
+			p2.setBorder(BorderFactory.createTitledBorder(getRaised(), secattri.getSection() + " TABLE", TitledBorder.LEFT,
+					TitledBorder.DEFAULT_POSITION));
 
-		p1loyaltyCard.add(lPoint = new JLabel("POINTS:"));
-		p1loyaltyCard.add(lAmountPoints = new JLabel("points here"));
+			scroll = new JScrollPane(tableSearch);
+			scroll.setViewportView(tableSearch);
+			p2.add(scroll);
+			
+			p2.add(p2TableButtons = new JPanel());
+			p2TableButtons.setLayout(new BoxLayout(p2TableButtons, BoxLayout.X_AXIS));
+			/* Data can be delete or modify dynamically because tables are connected 
+			 * between them in the database (Parent tables)
+			 * 		// Delete
+			bDelete = new JButton("DELETE");
+			bDelete.setActionCommand("DELETE");
+			bDelete.addActionListener(controllersection);
+			p2TableButtons.add(bDelete);
+			*/	
+			// Show all data
+			bAll = new JButton("SHOW ALL");
+			bAll.setActionCommand("SHOW ALL");
+			bAll.addActionListener(controllersection);
+			p2TableButtons.add(bAll);
+			Validation();
 
-		p1loyaltyCard.add(lFreeRents = new JLabel("FREE RENTS:"));
-		p1loyaltyCard.add(lAmountFreeRents = new JLabel("amount of free rents here"));
+		}
+		@Override
+		public void tableSearchModel() {	
+			if (tableSearchModel.getRowCount() > 0) {
+	            for (int i = tableSearchModel.getRowCount() - 1; i > -1; i--) {
+	            	tableSearchModel.removeRow(i);
+	            }
+	        }
+			tableSearchModel = new DefaultTableModel(secattri.getTableContent(), secattri.getTableNames());
+			tableSearch.setModel(tableSearchModel);
 
-		p1loyaltyCard.add(Box.createRigidArea(new Dimension(0, 10)));
-	}
+		Validation();
+		}
+
+
 
 	@Override
 	public void Validation() {
@@ -318,7 +367,6 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		return format;
 	}
 
-	@Override
 	public String getComboCategory() {
 		category = (String) comboCategory.getSelectedItem();
 		return category;
@@ -543,8 +591,8 @@ public class Sections extends Sections_Attributes implements Sections_Interface 
 		fPrice.setText("100");
 	}
 
-//--------------RETURNING---------------------
-	public void ReturningReturnButton() {
 
-	}
+
+//--------------RETURNING---------------------
+
 }

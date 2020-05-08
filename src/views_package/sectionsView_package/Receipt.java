@@ -1,15 +1,19 @@
 package views_package.sectionsView_package;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ItemListener;
 //import java.text.SimpleDateFormat;
 //import java.util.Calendar;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentListener;
 
 //import controllers_package.controllers_sections_package.Controller_Sections;
@@ -18,17 +22,30 @@ public class Receipt extends Sections{
 	
 	public Receipt() {
 		super();
-		secattri.setFrameSize(150,10,370, 650);
+		secattri.setFrameSize(40,0,370, 680);
 		FrameAttributes(frameLeft, frameUpper, frameWidth, frameHeight);
-		secattri.setFrameHeightTable(700);
+		secattri.setFrameHeightTable(200,0,800,665);
+		table(frameLerftTable, frameUpperTable, frameWidthTableint, frameHeightTable);
 		secattri.setP1height(330, 650);
 		p1(p1width, p1height);
 		Search();
-		secattri.setp1Add(330, 600,"RECEIPT");
+		secattri.setp1Add(330, 500,"RECEIPT");
 		AddTop(p1Addwidth, p1Addheight, titleBorder);
 		Add();
 		secattri.setAddButton("RECEIPT");
 		AddButton(AddButton);
+	}
+	@Override
+	public void AddTop(int p1Addwidth, int p1Addheight, String titleBorder) {
+		p1.setPreferredSize(new Dimension(secattri.getP1width(), secattri.getP1height()));
+		p1.add(p1add = new JPanel());
+		p1add.setLayout(new BoxLayout(p1add, BoxLayout.Y_AXIS));
+		p1add.setPreferredSize(new Dimension(secattri.getP1Addwidth(), secattri.getP1Addheight()));
+		p1add.setMaximumSize(new Dimension(secattri.getP1Addwidth(), secattri.getP1Addheight()));
+		p1add.setBorder(BorderFactory.createTitledBorder(getRaised(), secattri.getTitleBorder(), TitledBorder.LEFT,
+				TitledBorder.DEFAULT_POSITION));
+		p1add.add(p1addlabels = new JPanel());
+		p1addlabels.setLayout(new GridLayout(0, 2, 0, 8));
 	}
 	@Override
 	public void Add() {

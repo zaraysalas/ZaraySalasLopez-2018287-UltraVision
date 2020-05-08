@@ -35,15 +35,16 @@ public class Controller_Returning extends Sections_Attributes implements ActionL
 
 			try {
 
-				// Take each element in the row selected at Rented_List's table
+				// Takes elements in the row selected at Rented_List's table
 				MembershipCard = (String) (tableSearchModel.getDataVector().elementAt(tableSearch.getSelectedRow()))
 						.elementAt(0);
 				secattri.setMembershipCard(MembershipCard);
 
 				titleCode = (tableSearchModel.getDataVector().elementAt(tableSearch.getSelectedRow())).elementAt(1);
 				secattri.setCodeTitle(titleCode);
+				
 				String today = classection.today();
-				System.out.println(today);
+				//System.out.println(today);
 				Object returningDate = (tableSearchModel.getDataVector().elementAt(tableSearch.getSelectedRow()))
 						.elementAt(3);
 				
@@ -60,14 +61,16 @@ public class Controller_Returning extends Sections_Attributes implements ActionL
 				If the difference is more than Zero, the customer overrented the title and need to pay a penalty...
 				*/
 				if (daysOver > 0) {
+					new PopUp_Windows().titleOver();
 					//...therefore the Receipt window open with the data of the customer and the title
 					receipt = new Receipt();
 					fMembershipCard.setText(MembershipCard);
 					cReceiptType.setSelectedIndex(2);
 				} else {
-					//...if the diffrence is equal or less than zero, delete the data from the Rented_List
+					//...if the difference is equal or less than zero, delete the data from the Rented_List
 					// and update the stock
-					System.out.println("MembershipCard: " + MembershipCard + ", CodeTitle: " + titleCode);
+					//System.out.println("MembershipCard: " + MembershipCard + ", CodeTitle: " + titleCode);
+					//Call Database function to delete the row
 					updateQuery = dbfunc.deleteRentedList();
 					if (updateQuery <= 0) {
 						new PopUp_Windows().tryAgain();

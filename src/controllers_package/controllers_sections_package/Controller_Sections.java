@@ -26,8 +26,8 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 	private Menu menu;
 	private Controller_Menu contmenu;
 	private Database_Functions dbfunc;
-	//private Title title;
-	//private Customer customer;
+	// private Title title;
+	// private Customer customer;
 	protected Sections_Attributes secattri;
 	private Sections classection;
 	private StaffEncapsulation staffcapsule;
@@ -88,14 +88,14 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 					classection.comboTitleCode();
 
 				} else if (ReceiptType == "FREE RENT") {
-					
+
 					referenceValue = classection.getfMembership();
 					System.out.println(referenceValue);
-					//Select all from TITLES.
+					// Select all from TITLES.
 					secattri.setQuerySearchOneValue("TITLES", "CATEGORY", referenceValue, "CODE", "NAME",
 							"STOCK_AVAILABLE");
-						resultQuery = new Database_Functions().withPremium();
-						new Database_Functions().getTitleCodeList(resultQuery);
+					resultQuery = new Database_Functions().withPremium();
+					new Database_Functions().getTitleCodeList(resultQuery);
 					classection.comboTitleCode();
 					matchFound = secattri.getMatchFound();
 					if (matchFound) {
@@ -151,7 +151,7 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 							total = (price * daysOver);
 						}
 						classection.titleName();
-					}else if (ReceiptType.equals("FREE RENT")) {
+					} else if (ReceiptType.equals("FREE RENT")) {
 						new Sections().freeRentReceipt();
 						// Adding 3 Days to the current date
 						secattri.setDate(classection.returningDay());
@@ -207,11 +207,11 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 
 		switch (e.getActionCommand()) {
 
-		case "bMenu":			
+		case "bMenu":
 			staffcapsule = new StaffEncapsulation();
 			staffcapsule.setstaff("", "");
 			contmenu = new Controller_Menu(staffcapsule);
-			
+
 			break;
 
 		case "bSearch":
@@ -229,18 +229,48 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 			} else if (selection.equals("Choose one")) {
 				new PopUp_Windows().tryAgain();
 			} else {
-				dbfunc.searchby();
+				if(secattri.getSection().equals("TITLES") || secattri.getSection().equals("CUSTOMER")) {
+				dbfunc.searchbyJoin();
+				}else if(secattri.getSection().equals("RECEIPT") || secattri.getSection().equals("RENTED_LIST")) {
+					dbfunc.searchby();
+				}
 				matchFound = secattri.getMatchFound();
 				if (matchFound) {
 					tableNames = secattri.getTableNames();
 					tableContent = secattri.getTableContent();
-					classection.table(frameHeight);
+					
+					classection.tableSearchModel();
 				} else {
 					new PopUp_Windows().noData();
 				}
 			}
 			break;
-		case "bSearchAll":
+			
+		case"NEW":
+			
+			if(secattri.getSection().equals("TITLES")) {
+				classection.AddTop(p1Addwidth, p1Addheight, titleBorder);
+				classection.Add();
+				classection.AddButton(AddButton);}
+			else if(secattri.getSection().equals("CUSTOMER")){			
+				classection.AddTop(p1Addwidth, p1Addheight, titleBorder);
+				secattri.setAddButton("ADD_CUSTOMER");
+				classection.AddCustomer();
+				classection.AddButton(AddButton);}
+			
+			break;
+		
+		case "UPDATE":
+			if(secattri.getSection().equals("TITLES")) {}
+			else if(secattri.getSection().equals("CUSTOMER")){			
+				classection.AddTop(p1Addwidth, p1Addheight, titleBorder);
+				secattri.setAddButton("UPDATE_CUSTOMER");
+				classection.Update();
+				classection.AddButton(AddButton);}
+			
+			break;
+			
+		case "SHOW ALL":
 
 			dbfunc = new Database_Functions();
 			dbfunc.searchAll();
@@ -249,12 +279,12 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 			if (matchFound) {
 				tableNames = secattri.getTableNames();
 				tableContent = secattri.getTableContent();
-				// classection = new Sections();
-				classection.table(frameHeight);
+				classection.tableSearchModel();
 
 			} else {
 				new PopUp_Windows().noData();
 			}
+			
 			break;
 
 		case "ADD_TITLE":
@@ -323,6 +353,16 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 				}
 			}
 			break;
+			
+		case "UPDATE_CUSTOMER":
+			secattri.setCategoryUpdate(classection.getCategoryUpdate());
+			if( !(classection.getfMembershipCard()).matches("[0-9]+")) {
+				new PopUp_Windows().notNumber();
+				}else {secattri.setMembershipCard(classection.getfMembershipCard());}
+			updateQuery = dbfunc.update();
+			if(updateQuery > 0) {new PopUp_Windows().success();}		
+		
+			break;
 		// Generate a RECEIPT depend on the option provided
 		case "RECEIPT":
 
@@ -335,25 +375,28 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 			secattri.setReceiptNum(classection.getReceiptNum());
 			secattri.setCodeTitle(classection.getcomboTitleCode());
 
-			if (classection.getcReceiptType() == "RENT"|| classection.getcReceiptType() == "FREE RENT") {
+			if (classection.getcReceiptType() == "RENT" || classection.getcReceiptType() == "FREE RENT") {
 				// Button RECEIPT will insert to RENTED_LIST_TABLE
 				query = new Database_Functions().insertRentedList();
 				insertDone = new Database_Functions().insert(query);
 				if (insertDone) {
-					
+
 					// Button RECEIPT will update LOYALTY_CARD
-					if(classection.getcReceiptType() == "RENT") {pointsEarn = 10;}else if(classection.getcReceiptType() == "FREE RENT"){pointsEarn = -100;}
+					if (classection.getcReceiptType() == "RENT") {
+						pointsEarn = 10;
+					} else if (classection.getcReceiptType() == "FREE RENT") {
+						pointsEarn = -100;
+					}
 					loyaltyCardDone = new Database_Functions().updateloyaltyCard(loyaltyCardFound, pointsEarn);
 					// Insert to RECEIPT_TABLE for RENT
 					// query = new Database_Functions().insertReceiptTable();
 					// insertDone = new Database_Functions().insert(query);
 					if (loyaltyCardDone) {
 						new PopUp_Windows().points_freeRents_available();
-						
+
 					} else {
 						new PopUp_Windows().tryAgain();
 					}
-					
 
 				} else {
 					new PopUp_Windows().duplicateRent();
@@ -363,24 +406,50 @@ public class Controller_Sections extends Sections_Attributes implements ItemList
 			} else if (classection.getcReceiptType() == "PENALTY") {
 				// Delete from RENTED_LIST
 				updateQuery = dbfunc.deleteRentedList();
-		
-			} 
-			
-			if(insertDone || updateQuery>0) {
-			// Insert to RECEIPT_TABLE for PENALTY, RENT, FREE RENT
-			query = new Database_Functions().insertReceiptTable();
-			insertDoneReceiptTable = new Database_Functions().insert(query);
-			updateQueryStock = dbfunc.updateStock();
-			// Button RECEIPT will add to PENALTY_TABLE
-			if (insertDoneReceiptTable && updateQueryStock > 0) {
-				new PopUp_Windows().stockUpdated();
-				//System.out.println("RECEIPT_ TABLE insert");
-			} else {
-				//System.out.println("RECEIPT_ TABLE  was not insert");
-				new Sections().noData();
+
 			}
+
+			if (insertDone || updateQuery > 0) {
+				// Insert to RECEIPT_TABLE for PENALTY, RENT, FREE RENT
+				query = new Database_Functions().insertReceiptTable();
+				insertDoneReceiptTable = new Database_Functions().insert(query);
+				updateQueryStock = dbfunc.updateStock();
+				// Button RECEIPT will add to PENALTY_TABLE
+				if (insertDoneReceiptTable && updateQueryStock > 0) {
+					new PopUp_Windows().stockUpdated();
+					// System.out.println("RECEIPT_ TABLE insert");
+				} else {
+					// System.out.println("RECEIPT_ TABLE was not insert");
+					new Sections().noData();
+				}
 			}
 			break;
+			
+/*
+		case "DELETE":
+
+			// Takes elements in the row selected at Rented_List's table
+			tableName = secattri.getSection();
+			secattri.setTableNames(tableName);
+			if (tableName.equals("TITLES")) {
+				where = "CODE";
+			} else if (tableName.equals("CUSTOMER")) {
+				where = "MEMBERSHIP_CARD";
+			}
+			secattri.setWhere(where);
+			referenceValue = (tableSearchModel.getDataVector().elementAt(tableSearch.getSelectedRow())).elementAt(0);
+			secattri.setCodeTitle(referenceValue);
+			System.out.println("Controller-Sections: " + tableName + where + referenceValue);
+
+			// Call Database function to delete the row
+			updateQuery = dbfunc.delete();
+			if (updateQuery <= 0) {
+				new PopUp_Windows().tryAgain();
+			} else {
+				new PopUp_Windows().success();
+			}
+			break;
+*/
 		}
 
 	}

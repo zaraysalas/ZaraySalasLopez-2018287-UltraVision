@@ -22,42 +22,39 @@ import controllers_package.controller_login_package.Controller_Menu;
 import controllers_package.controllers_sections_package.Controller_Sections;
 
 public class Customer extends Sections{
-	
-	private static Controller_Sections controllersection;
-
 
 	public Customer(){
 		super();
-		secattri.setFrameSize(200, 100, 330, 400);
-		FrameAttributes(frameLeft, frameUpper, frameWidth, frameHeight);
-		secattri.setFrameHeightTable(400);
-		secattri.setP1height(330, 320);
+		secattri.setFrameSize(200, 100, 330, 200);
+		secattri.setP1height(330, 450);
+		secattri.setp1Add(330, 200, "NEW CUSTOMER");
+		secattri.setFrameHeightTable(200,40,800,400);
+		FrameAttributes(secattri.getFrameLeft(), secattri.getFrameUpper(), secattri.getFrameWidth(), secattri.getFrameHeight());
+		table(frameLerftTable, frameUpperTable, frameWidthTableint, frameHeightTable);
 		p1(p1width, p1height);
 		Search();
-		AddTop(p1Addwidth, p1Addheight, titleBorder);
-		Add();
-		secattri.setAddButton("ADD_CUSTOMER");
-		AddButton(AddButton);
+		modifyButtons();
+
 		Validation();
 	}
-	
 
 	@Override
-	public void Add() {
-		p1addlabels.add(lFirstName = new JLabel("FIRST NAME:"));
-		p1addlabels.add(fFirstName = new JTextField());
-
-		p1addlabels.add(lLastName = new JLabel("LAST NAME:"));
-		p1addlabels.add(fLastName = new JTextField());
-
-		p1addlabels.add(lMembership = new JLabel("MEMBERSHIP'S LEVEL:"));
-		memberLevelList = new String[] {"Choose one","MO", "MU", "LC", "BS"};
-		cMemberLevel = new JComboBox<String>(memberLevelList);
-		p1addlabels.add(cMemberLevel);
+	public void modifyButtons() {
 		
-		p1addlabels.add(lCreditCard = new JLabel("CREDIT CARD:"));
-		p1addlabels.add(fCreditCard = new JTextField());
+		p1Menu.add(p1ModifyButtons = new JPanel());
+		//p1Modify.add(p1ModifyButtons = new JPanel());
+		p1ModifyButtons.setLayout(new BoxLayout(p1ModifyButtons, BoxLayout.X_AXIS));
+		//Modify
+		bNew = new JButton("NEW CUSTOMER");
+		bNew.setActionCommand("NEW");
+		bNew.addActionListener(controllersection);
+		p1ModifyButtons.add(bNew);
+		p1ModifyButtons.add(Box.createRigidArea(new Dimension(15, 0)));
+		
+		bUpdate = new JButton("UPDATE CUSTOMER");
+		bUpdate.setActionCommand("UPDATE");
+		bUpdate.addActionListener(controllersection);
+		p1ModifyButtons.add(bUpdate);
 	}
-	
 
 }

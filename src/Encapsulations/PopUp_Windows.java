@@ -104,9 +104,15 @@ public class PopUp_Windows{
 	}
 	public void noTableSelected() {
 		JOptionPane.showMessageDialog(null,
-			    "Please, select a table. \nYou can do that in the upper section",
+			    "Please, select a row fron the table. \nYou can do that in the upper section",
 			    "No Table",
 			    JOptionPane.ERROR_MESSAGE);
 		
+	}
+	public void titleOver() {
+		JOptionPane.showMessageDialog(null,
+			    "This title is Overrented.\n You will be redirected to charge a penalty receipt.",
+			    "Title Overrented",
+			    JOptionPane.INFORMATION_MESSAGE);
 	}
 }
